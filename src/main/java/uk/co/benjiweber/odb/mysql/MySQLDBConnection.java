@@ -54,4 +54,10 @@ public class MySQLDBConnection implements DBConnection
 			throw new ODBException("Could not connect to the database",e);
 		}
 	}
+
+	@Override
+	public String getDatabaseName()
+	{
+		return database;
+	}
 }

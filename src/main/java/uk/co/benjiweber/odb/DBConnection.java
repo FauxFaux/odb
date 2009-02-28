@@ -9,4 +9,5 @@ import java.sql.Connection;
 public interface DBConnection
 {
 	public Connection getConnection() throws ODBException;
+	public String getDatabaseName();
 }

@@ -161,7 +161,7 @@ public class MySQLObjectRepository implements ObjectRepository
 	private boolean tableExists(String tableName) throws SQLException, ODBException
 	{
 		PreparedStatement stmt = conn.getConnection().prepareStatement("SELECT * FROM Information_schema.tables WHERE table_schema = ? AND table_name = ?");
-		stmt.setString(1,"odb");
+		stmt.setString(1,conn.getDatabaseName());
 		stmt.setString(2, tableName);
 		return stmt.executeQuery().next();
 	}
