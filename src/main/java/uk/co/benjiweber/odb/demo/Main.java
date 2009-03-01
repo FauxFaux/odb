@@ -24,7 +24,7 @@ public class Main
 		final String username = args[2];
 		final String password = args[3];
 
-		TestsBase tb = new TestsBase()
+		final TestsBase tb = new TestsBase()
 		{
 			@Override public void setUp() throws Exception
 			{

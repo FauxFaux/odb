@@ -72,7 +72,7 @@ public class MySQLObjectRepository implements ObjectRepository
 
 					public Select<T> equals(int value) throws QueryException
 					{
-						return selectAllProperty(type,property,value," = ");
+						return selectAllProperty(type,property,Integer.valueOf(value)," = ");
 					}
 
 					public Select<T> like(String value) throws QueryException
@@ -104,7 +104,7 @@ public class MySQLObjectRepository implements ObjectRepository
 			sql.append(p.Name).append(",");
 
 		sql.deleteCharAt(sql.length() -1);
-		
+
 		sql.append(") VALUES (").append(o.hashCode()).append(",");
 
 		for (Property p : properties)
@@ -202,7 +202,7 @@ public class MySQLObjectRepository implements ObjectRepository
 		} catch (Exception ex)
 		{
 			throw new QueryException(ex);
-		} 
+		}
 
 	}
 
@@ -272,5 +272,5 @@ public class MySQLObjectRepository implements ObjectRepository
 	}
 
 
-	
+
 }

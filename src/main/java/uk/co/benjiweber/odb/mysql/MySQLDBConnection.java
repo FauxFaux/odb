@@ -35,12 +35,12 @@ public class MySQLDBConnection implements DBConnection
 		this.username = username;
 	}
 
-	private Connection connect(String username, String password,
-			String database, String server) throws ClassNotFoundException,
+	private Connection connect(String uname, String pword,
+			String dbase, String svr) throws ClassNotFoundException,
 			InstantiationException, SQLException, IllegalAccessException {
-		String url = "jdbc:mysql://" + server + "/" + database;
+		String url = "jdbc:mysql://" + svr + "/" + dbase;
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		return DriverManager.getConnection(url, username, password);
+		return DriverManager.getConnection(url, uname, pword);
 	}
 
 

@@ -12,7 +12,7 @@ public abstract class Property<T>
 	}
 
 	public abstract T getValue();
-	
+
 	public abstract void setValue(T value);
 
 	@Override
