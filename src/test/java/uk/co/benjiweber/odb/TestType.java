@@ -1,7 +1,5 @@
-package uk.co.benjiweber.odb.demo;
+package uk.co.benjiweber.odb;
 
-import uk.co.benjiweber.odb.Property;
-import uk.co.benjiweber.odb.ODBType;
 
 /**
  *
@@ -82,5 +80,9 @@ public class TestType
 		return hash;
 	}
 
+	@Override public String toString()
+	{
+		return "TestType[" + hello + ":" + world + "]";
+	}
 
 }

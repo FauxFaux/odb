@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package uk.co.benjiweber.odb.demo;
+package uk.co.benjiweber.odb;
 
 import uk.co.benjiweber.odb.ODBType;
 import uk.co.benjiweber.odb.Property;
@@ -87,5 +87,9 @@ public class AnotherTestType
 		return hash;
 	}
 
-	
+	@Override public String toString()
+	{
+		return "AnotherTestType[" + number + ":" + name + "]";
+	}
+
 }

@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import uk.co.benjiweber.odb.DBConnection;
 import uk.co.benjiweber.odb.ODBException;
-
+import com.mysql.jdbc.Driver;
 /**
  *
  * @author benji
