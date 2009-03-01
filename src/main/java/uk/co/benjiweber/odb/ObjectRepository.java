@@ -1,6 +1,7 @@
 package uk.co.benjiweber.odb;
 
 import java.util.List;
+
 import uk.co.benjiweber.odb.oinq.QueryException;
 import uk.co.benjiweber.odb.oinq.SelectOrWhere;
 

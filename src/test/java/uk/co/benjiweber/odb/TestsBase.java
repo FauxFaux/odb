@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import uk.co.benjiweber.odb.oinq.QueryException;
-import uk.co.benjiweber.odb.oinq.Use;
 import uk.co.benjiweber.odb.oinq.util.ListAccum;
 
 public class TestsBase

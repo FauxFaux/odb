@@ -5,8 +5,6 @@
 
 package uk.co.benjiweber.odb;
 
-import uk.co.benjiweber.odb.ODBType;
-import uk.co.benjiweber.odb.Property;
 
 /**
  *
