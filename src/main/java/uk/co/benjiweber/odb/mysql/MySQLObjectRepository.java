@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -265,12 +266,9 @@ public class MySQLObjectRepository implements ObjectRepository
 			save(o);
 	}
 
-	public void saveAll(List<Object> os) throws ODBException
+	public void saveAll(Collection<Object> os) throws ODBException
 	{
 		for(Object o : os)
 			save(o);
 	}
-
-
-
 }
