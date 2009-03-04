@@ -28,13 +28,13 @@ public class AnotherTestType
 		@Override
 		public Integer getValue()
 		{
-			return number;
+			return Integer.valueOf(number);
 		}
 
 		@Override
 		public void setValue(Integer value)
 		{
-			number = value;
+			number = value.intValue();
 		}
 	};
 
