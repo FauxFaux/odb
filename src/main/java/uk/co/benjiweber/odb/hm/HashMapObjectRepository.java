@@ -115,7 +115,7 @@ public class HashMapObjectRepository implements ObjectRepository
 							throw new QueryException(e);
 						}
 						final Collection<T> c = new ArrayList<T>();
-						for (T t : getVals())
+						for (T t : source)
 							try
 							{
 								if (inc.isIncluded(f.get(t)))
@@ -153,7 +153,6 @@ public class HashMapObjectRepository implements ObjectRepository
 					{
 						return selectFor(filter(getVals(), new Inclusor()
 						{
-
 							@Override public boolean isIncluded(Object ob)
 							{
 								return value.equals(ob);
