@@ -1,6 +1,7 @@
 package uk.co.benjiweber.odb.mysql;
 
 import java.lang.reflect.Field;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -120,13 +121,21 @@ public class MySQLObjectRepository implements ObjectRepository
 
 		sql.deleteCharAt(sql.length() -1);
 
-		PreparedStatement stmt = conn.getConnection().prepareStatement(sql.toString());
-		for (int i = 1; i <= properties.size(); i++)
+		final Connection connection = conn.getConnection();
+		try
 		{
-			stmt.setObject(i, properties.get(i-1).getValue());
-			stmt.setObject(i + properties.size(), properties.get(i-1).getValue());
+			PreparedStatement stmt = connection.prepareStatement(sql.toString());
+			for (int i = 1; i <= properties.size(); i++)
+			{
+				stmt.setObject(i, properties.get(i - 1).getValue());
+				stmt.setObject(i + properties.size(), properties.get(i - 1).getValue());
+			}
+			stmt.executeUpdate();
 		}
-		stmt.executeUpdate();
+		finally
+		{
+			connection.close();
+		}
 	}
 
 	private void createTableIfRequired(Object o) throws SQLException, ODBException
@@ -150,8 +159,15 @@ public class MySQLObjectRepository implements ObjectRepository
 		sql.deleteCharAt(sql.length() -1);
 		sql.append(")");
 
-		conn.getConnection().prepareStatement(sql.toString()).execute();
-
+		final Connection connection = conn.getConnection();
+		try
+		{
+			connection.prepareStatement(sql.toString()).execute();
+		}
+		finally
+		{
+			connection.close();
+		}
 	}
 
 
@@ -162,10 +178,18 @@ public class MySQLObjectRepository implements ObjectRepository
 
 	private boolean tableExists(String tableName) throws SQLException, ODBException
 	{
-		PreparedStatement stmt = conn.getConnection().prepareStatement("SELECT * FROM Information_schema.tables WHERE table_schema = ? AND table_name = ?");
-		stmt.setString(1,conn.getDatabaseName());
-		stmt.setString(2, tableName);
-		return stmt.executeQuery().next();
+		final Connection connection = conn.getConnection();
+		try
+		{
+			PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Information_schema.tables WHERE table_schema = ? AND table_name = ?");
+			stmt.setString(1,conn.getDatabaseName());
+			stmt.setString(2, tableName);
+			return stmt.executeQuery().next();
+		}
+		finally
+		{
+			connection.close();
+		}
 	}
 
 	private List<Property> getProperties(Object o)
@@ -212,12 +236,20 @@ public class MySQLObjectRepository implements ObjectRepository
 		try
 		{
 			List<T> all = new ArrayList<T>();
-			PreparedStatement stmt = conn.getConnection().prepareStatement("SELECT * FROM " + type.getSimpleName());
-			ResultSet results = stmt.executeQuery();
-			while (results.next())
-				all.add(map(results,type));
+			final Connection connection = conn.getConnection();
+			try
+			{
+				PreparedStatement stmt = connection.prepareStatement("SELECT * FROM " + type.getSimpleName());
+				ResultSet results = stmt.executeQuery();
+				while (results.next())
+					all.add(map(results,type));
 
-			return all;
+				return all;
+			}
+			finally
+			{
+				connection.close();
+			}
 		} catch (Exception e)
 		{
 			throw new QueryException(e);
@@ -229,14 +261,24 @@ public class MySQLObjectRepository implements ObjectRepository
 		try
 		{
 			List<T> all = new ArrayList<T>();
-			PreparedStatement stmt = conn.getConnection().prepareStatement(new StringBuilder("SELECT * FROM ").append(type.getSimpleName()).append(" WHERE ").append(prop.Name).append(operator).append("?").toString());
+			final Connection connection = conn.getConnection();
+			try
+			{
+				PreparedStatement stmt = connection.prepareStatement(new StringBuilder(
+						"SELECT * FROM ").append(type.getSimpleName()).append(" WHERE ").append(
+						prop.Name).append(operator).append("?").toString());
 
-			stmt.setObject(1, value);
-			ResultSet results = stmt.executeQuery();
-			while (results.next())
-				all.add(map(results,type));
+				stmt.setObject(1, value);
+				ResultSet results = stmt.executeQuery();
+				while (results.next())
+					all.add(map(results, type));
 
-			return all;
+				return all;
+			}
+			finally
+			{
+				connection.close();
+			}
 		} catch (Exception e)
 		{
 			throw new QueryException(e);

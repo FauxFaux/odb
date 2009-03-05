@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -72,7 +73,7 @@ public class TestsBase
 
 	@Test public void addMany() throws QueryException, ODBException
 	{
-		final int nums = 500000;
+		final int nums = 1000;
 		for (long i = 0; i < nums; ++i)
 			or.save(new TestType(String.valueOf(i), ""));
 		final Property<String> hello = new TestType().Hello;
