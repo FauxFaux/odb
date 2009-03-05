@@ -118,7 +118,7 @@ public class HashMapObjectRepository implements ObjectRepository
 						for (T t : source)
 							try
 							{
-								if (inc.isIncluded(f.get(t)))
+								if (inc.isIncluded(((Property)f.get(t)).getValue()))
 									c.add(t);
 							}
 							catch (IllegalArgumentException e)
@@ -177,7 +177,7 @@ public class HashMapObjectRepository implements ObjectRepository
 					@Override public Select<T> like(String value) throws QueryException
 					{
 						final Pattern reg = Pattern.compile(value.replaceAll("([^a-zA-Z0-9])", "\\\\$1")
-								.replaceAll("\\%", ".*").replaceAll("\\_", "."));
+								.replaceAll("\\\\%", ".*").replaceAll("\\\\_", "."));
 
 						return selectFor(filter(getVals(), new Inclusor()
 						{
