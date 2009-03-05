@@ -70,6 +70,15 @@ public class TestsBase
 		assertSetEquals(Arrays.asList(AT5Cats), la);
 	}
 
+	@Test public void addMany() throws QueryException, ODBException
+	{
+		final int nums = 500000;
+		for (long i = 0; i < nums; ++i)
+			or.save(new TestType(String.valueOf(i), ""));
+		final Property<String> hello = new TestType().Hello;
+		assertEquals(nums/10, or.from(TestType.class).where(hello).like("%1").select().size());
+	}
+
 	static <T> void assertSetEquals(Collection<? extends T> expected, Collection<? extends T> actual)
 	{
 		assertEquals(new HashSet<T>(expected), new HashSet<T>(actual));
